@@ -74,7 +74,9 @@ class _SignUp2State extends State<SignUp2> {
                     height: 18,
                   ),
                   Pinput(
+
                     length: 6,
+
                     onCompleted: (pin) => {
                       setState(() {
                         otpPin = pin;
@@ -106,13 +108,15 @@ class _SignUp2State extends State<SignUp2> {
               greenButton(
                 label: "Next",
                 onPressed: () async {
-                  print(auth.phoneNumController.text.trim());
-                  User userObj = await context
-                      .read<AuthService>()
-                      .signInWithPhone(auth.verificationId, otpPin);
-                  Provider.of<AuthProvider>(context, listen: false)
-                      .setUser(userObj);
-                  auth.signUpState = 3;
+                  if(otpPin!=""){
+                    print(auth.phoneNumController.text.trim());
+                    User userObj = await context
+                        .read<AuthService>()
+                        .signInWithPhone(auth.verificationId, otpPin);
+                    Provider.of<AuthProvider>(context, listen: false)
+                        .setUser(userObj);
+                    auth.signUpState = 3;
+                  }
                 },
               )
             ],
